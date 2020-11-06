@@ -22,6 +22,14 @@
         font-weight: bold;
         color: #fff;
       }
+      span {
+        transition: all 300ms 0s ease;
+      }
+      
+      .add-color {
+        font-size: 0.5em;
+        color: #666;
+      }
     </style>
   </head>
 <body>
@@ -37,7 +45,7 @@
     const textLists = [
       'Hello World',
       'This is my App',
-      'How are you' 'Today is sunny','I love JavaScript!','Good morning',
+      'How are you','Today is sunny','I love JavaScript!','Good morning',
       'I am Japanese','Let it be','Samurai',
       'Typing Game','Information Technology',
       'I want to be a programmer','What day is today?',
@@ -51,6 +59,8 @@
       'programming'
       ];
       
+      let checkTexts = [];
+      
     const createText = () => {
       
     
@@ -60,29 +70,101 @@
       
       p.textContent ='';
       
-      textLists[rnd].split('').map(value => {
+      checkTexts = textLists[rnd].split('').map(value => {
+        
+      
         
         const span = document.createElement('span');
         
         span.textContent = value;
         
         p.appendChild(span);
+        
+        return span;
       })
       
   
     };
       
+     
+     let socre = 0;
+     
+    const keyDown = e => {
+      if(e.key === checkTexts[0].textContent) {
+        checkTexts[0].className = 'add-color';
+        
+        checkTexts.shift();
+        
+        score++;
+        
+        if(!checkTexts.length) createText();
+        
+      } else if(e.key === 'Shift') {
++   wrap.style.backgroundColor = '#666';
+
+  // タイプミスした時だけ背景色を赤色に変える
++ } else {
++   wrap.style.backgroundColor = 'red';
++ }
+      }
+    };
+    
+    const rankCheck = score => {
       
-    const keyDown = e => {};
+      return '${score}文字打てました！';
+      
+      let text = '';
+  
+   // スコアに応じて異なるメッセージを変数textに格納する
++  if(score < 100) {
++    text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
++  } else if(score < 200) {
++    text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;    
++  } else if(score < 300) {
++    text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;    
++  } else if(score >= 300) {
++    text = `あなたのランクはSです。\nおめでとうございます！`;    
++  }
+  
+   // 生成したメッセージと一緒に文字列を返す
++  return `${score}文字打てました！\n${text}\n【OK】リトライ／【キャンセル】終了`;
+    };
     
-    const rankCheck = rank => {};
+    const gameOver = id => {
+      clearInterval(id);
+      
+      
+      const result = confirm(rankCheck(score));
+      
+      if(result) window.location.reload();
+      
+  };
     
-    const gameOver = id => {};
-    
-    const timer = () => {};
+    79nst timer = () => {
+      
+      let time = 60;
+      
+      const count = document.getElementById('count');
+      
+      const id = setInterval(() => {
+        
+        if(time <= 0) gameOver(id);
+        
+      
+        
+        count.textContent = time--;
+        
+      },1000);
+    };
     
     start.addEventListener('click', () => {
+      
+      timer();
+      
       createText();
+      
+      start.style.display = 'none';
+      
     })
     
     
