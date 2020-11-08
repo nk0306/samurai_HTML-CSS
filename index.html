@@ -61,6 +61,8 @@
       
       let checkTexts = [];
       
+      let socre = 0;
+      
     const createText = () => {
       
     
@@ -87,9 +89,10 @@
     };
       
      
-     let socre = 0;
+     
      
     const keyDown = e => {
+      wrap.style.backgroundColor = '#666';
       if(e.key === checkTexts[0].textContent) {
         checkTexts[0].className = 'add-color';
         
@@ -100,34 +103,34 @@
         if(!checkTexts.length) createText();
         
       } else if(e.key === 'Shift') {
-+   wrap.style.backgroundColor = '#666';
+   wrap.style.backgroundColor = '#666';
 
-  // タイプミスした時だけ背景色を赤色に変える
-+ } else {
-+   wrap.style.backgroundColor = 'red';
-+ }
+  
+ } else {
+  wrap.style.backgroundColor = 'red';
+ }
       }
     };
     
     const rankCheck = score => {
       
-      return '${score}文字打てました！';
+      
       
       let text = '';
   
-   // スコアに応じて異なるメッセージを変数textに格納する
-+  if(score < 100) {
-+    text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
-+  } else if(score < 200) {
-+    text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;    
-+  } else if(score < 300) {
-+    text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;    
-+  } else if(score >= 300) {
-+    text = `あなたのランクはSです。\nおめでとうございます！`;    
-+  }
+   
+    if(score < 100) {
+    text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
+  } else if(score < 200) {
+    text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;    
+  } else if(score < 300) {
+    text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;    
+  } else if(score >= 300) {
+    text = `あなたのランクはSです。\nおめでとうございます！`;    
+  }
   
-   // 生成したメッセージと一緒に文字列を返す
-+  return `${score}文字打てました！\n${text}\n【OK】リトライ／【キャンセル】終了`;
+   
+  return `${score}文字打てました！\n${text}\n【OK】リトライ／【キャンセル】終了`;
     };
     
     const gameOver = id => {
@@ -140,7 +143,7 @@
       
   };
     
-    79nst timer = () => {
+    const timer = () => {
       
       let time = 60;
       
@@ -164,6 +167,7 @@
       createText();
       
       start.style.display = 'none';
+      document.addEventListener('keydown',keyDown);
       
     })
     
