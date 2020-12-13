@@ -1,6 +1,7 @@
 <!doctype html>
-<html>
+<html lang="ja">
 <head>
+   <meta charset="utf-8">
     <style>
     img{
       width: 10px;
@@ -11,17 +12,17 @@
 <body>
   <button>表示</button>
   <div>
-  <img src="sample.jpg"/>
+  <img src="images/sample.jpg"/>
   </div>
-  
   <script src="jquery-3.5.1.min.js"></script>
+  
   <script>
-  $('button').on('click',()=>{
-    $('img').animate({
-      opacity:1,
-      width:400,
-    },1000);
-  })
+    $('button').on('click', () => {
+      $('img').animate({
+          opacity: 1,
+          width: 400,
+      }, 1000);
+    })
   </script>
 </body>
 </html>
